@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { postPoll } from "../controllers/pollsControllers.js";
+import { getPoll, postPoll } from "../controllers/pollsControllers.js";
+import { pollsSchemaValidation } from "../middlewares/pollValidationMiddleware.js";
 
 
 
@@ -7,7 +8,7 @@ import { postPoll } from "../controllers/pollsControllers.js";
 
 const router = Router();
 
-router.post("/poll", postPoll);
-// router.get("pool", validation, function);
+router.post("/poll", pollsSchemaValidation, postPoll);
+router.get("/poll", getPoll);
 
 export default router;

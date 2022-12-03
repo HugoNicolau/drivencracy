@@ -2,11 +2,9 @@ import dayjs from "dayjs";
 import { pollsCollection } from "../database/db.js";
 
 export async function postPoll(req, res){
-    const { title, expireAt } = req.body
-    if(!title){
-        return res.status(422).send("Título não pode ser vazio");
-    }
-  
+    const poll = res.locals.poll;
+    const {title, expireAt} = poll;
+
     try{
         const newPoll = {title:title, expireAt:(!expireAt ? dayjs().add(30, 'day').format(`YYYY/MM/DD HH:mm`) : expireAt )}
         await pollsCollection.insertOne(newPoll)
@@ -16,4 +14,17 @@ export async function postPoll(req, res){
         return res.sendStatus(500);
     }
 
+}
+
+export async function getPoll(req, res){
+    
+    try {
+        const polls = await pollsCollection.find({}).toArray();
+
+        return res.send(polls).status(200);
+    
+    } catch(err){
+        console.log(err);
+        return res.sendStatus(500);
+    }
 }
