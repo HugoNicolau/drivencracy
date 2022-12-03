@@ -6,12 +6,12 @@ export async function postPoll(req, res){
     if(title.length < 1){
         return res.send("Título não pode ser vazio").status(422);
     }
-    if(!expireAt){
-        expireAt = dayjs().format(`YYYY/MM/DD`).padEnd(30, 'day');
-    }
+    // if(!expireAt){
+    //     expireAt = dayjs().format(`YYYY/MM/DD`).padEnd(30, 'day');
+    // }
 
     try{
-        const newPoll = {title:title, expireAt:expireAt}
+        const newPoll = {title:title, expireAt:(!expireAt ? dayjs().add(30, 'day').format(`YYYY/MM/DD HH:mm`) : expireAt )}
         await pollsCollection.insertOne(newPoll)
         return res.send(newPoll).status(201);
     } catch(err){
