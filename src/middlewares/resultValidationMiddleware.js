@@ -13,5 +13,6 @@ export async function resultValidation(req, res, next) {
   }
 
   res.locals.id = id;
+  res.locals.findPoll = findPoll;
   next();
 }

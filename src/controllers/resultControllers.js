@@ -2,6 +2,8 @@ import { choicesCollection, votesCollection } from "../database/db.js";
 
 export async function getResult(req, res) {
   const id = res.locals.id;
+  const findPoll = res.locals.findPoll;
+
   const findChoice = await choicesCollection.find({ pollId: id }).toArray();
   const findVotes = await votesCollection.find().toArray();
 
