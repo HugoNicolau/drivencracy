@@ -6,6 +6,7 @@ dotenv.config();
 import pollRoutes from "./routes/pollRoutes.js"
 import choiceRoutes from "./routes/choiceRoutes.js"
 import voteRoutes from "./routes/voteRoutes.js"
+import resultRoutes from "./routes/resultRoutes.js"
 
 const app = express();
 app.use(express.json());
@@ -13,6 +14,7 @@ app.use(cors());
 app.use(pollRoutes);
 app.use(choiceRoutes);
 app.use(voteRoutes);
+app.use(resultRoutes);
 
 
 const port = process.env.PORT || 5000;

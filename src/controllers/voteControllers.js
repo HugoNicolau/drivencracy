@@ -7,7 +7,8 @@ export async function postVote(req, res){
 
     try{
         
-        const newVote = await votesCollection.insertOne({createdAt:dayjs().format(`YYYY/MM/DD HH:mm`),choiceId:ObjectId(id)})
+        const newVote = {createdAt:dayjs().format(`YYYY/MM/DD HH:mm`),choiceId:ObjectId(id)}
+        await votesCollection.insertOne(newVote)
         return res.sendStatus(201);
 
     }   catch(err){
